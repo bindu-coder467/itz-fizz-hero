@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { background: #F4EFCB; }
+  body { @apply bg-foam font-display text-tide antialiased; }
+  :focus-visible { outline: 2px solid #0D2C35; outline-offset: 4px; border-radius: 4px; }
+}
+
+/* Lenis */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* Things animated in on load start hidden; GSAP reveals them. */
+[data-intro] { opacity: 0; }
+
+/* ---------- Stage geometry ----------
+   The stage is sized from the height that is actually free (viewport minus nav and footer strip),
+   so the road, the cards and the nav can never collide on short or wide windows. */
+:root {
+  --nav-h: 76px;
+  --foot-h: 40px;
+  --gap: 14px;
+  --vh: 100vh;                                              /* fallback for browsers without svh */
+  --avail: calc(max(var(--vh), 600px) - var(--nav-h) - var(--foot-h));
+  --road-h: clamp(130px, calc(var(--avail) * 0.27), 230px);
+  --cy: calc(var(--nav-h) + var(--avail) / 2);             /* vertical centre of the road */
+  --card-max: calc((var(--avail) - var(--road-h)) / 2 - var(--gap) - 6px);
+  --car-h: calc(var(--road-h) * 0.92);
+  --car-w: calc(var(--car-h) * 2.1);                        /* car image aspect ratio */
+}
+@supports (height: 1svh) { :root { --vh: 100svh; } }
+@media (min-width: 768px) {
+  :root {
+    --nav-h: 92px;
+    --gap: 22px;
+    --road-h: clamp(150px, calc(var(--avail) * 0.34), 300px);
+  }
+}
+
+.stage { top: var(--cy); transform: translateY(-50%); }
+
+.road {
+  height: var(--road-h);
+  background:
+    repeating-linear-gradient(90deg, rgba(244,239,203,.22) 0 40px, transparent 40px 90px) center 90% / 100% 2px no-repeat,
+    #0D2C35;
+}
+.trail {
+  background: linear-gradient(90deg, #6FD3B3, #8BE3C8 60%, #A9F0DA);
+  box-shadow: inset 0 0 0 1px rgba(13,44,53,.08);
+}
+.car-track { width: var(--car-w); height: var(--car-h); top: calc((var(--road-h) - var(--car-h)) / 2); }
+.car-img {
+  width: 100%; height: 100%; display: block; max-width: none;
+  filter: drop-shadow(0 14px 14px rgba(0, 0, 0, 0.45));
+}
+
+/* ---------- Headline ----------
+   Outlined on the dark road; once the trail has passed (--f → 1) the letter fills dark on the mint trail. */
+.letter {
+  display: inline-block;
+  color: rgb(13 44 53 / var(--f, 0));
+  -webkit-text-stroke-width: 1.5px;
+  -webkit-text-stroke-color: rgb(244 239 203 / calc(0.55 * (1 - var(--f, 0))));
+  will-change: transform;
+}
+.headline {
+  font-size: clamp(2rem, 10.4vw, 3.4rem);
+  letter-spacing: 0.12em;
+}
+@media (min-width: 768px) { .headline { font-size: clamp(2.4rem, 7.1vw, 9rem); } }
+
+/* ---------- Stat cards ---------- */
+.stat-wrap {
+  position: absolute;
+  width: clamp(140px, 42vw, 320px);
+  /* Grows when the car drives past it: 92% -> 106% (phones), 96% -> 108% (tablet), 96% -> 114% (desktop).
+     The amounts are tuned so grown cards never touch each other, the nav or the screen edge. */
+  --base: 0.92;
+  --grow: 0.14;
+  transform: scale(calc(var(--base) + var(--grow) * var(--lit, 0)));
+  transition: transform 0.7s cubic-bezier(.2,.8,.2,1);
+}
+@media (min-width: 768px) {
+  .stat-wrap { --base: 0.96; --grow: 0.12; width: clamp(210px, 21vw, 330px); margin-left: calc(clamp(210px, 21vw, 330px) / -2); }
+}
+@media (min-width: 1100px) { .stat-wrap { --grow: 0.18; } }
+
+.stat-top    { bottom: calc(100% - var(--cy) + var(--road-h) / 2 + var(--gap)); }
+.stat-bottom { top: calc(var(--cy) + var(--road-h) / 2 + var(--gap)); }
+
+/* Card typography scales with the room available above/below the road */
+.stat-card { padding: clamp(12px, calc(var(--card-max) * 0.12), 24px); border-radius: 16px; }
+.stat-num  { font-size: clamp(1.75rem, calc(var(--card-max) * 0.3), 2.5rem); font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; }
+.stat-text { margin-top: clamp(4px, calc(var(--card-max) * 0.05), 12px); font-size: clamp(0.8125rem, calc(var(--card-max) * 0.1), 1.125rem); line-height: 1.3; }
+@media (min-width: 768px) { .stat-num { font-size: clamp(1.75rem, calc(var(--card-max) * 0.3), 3.75rem); } }
+
+.stat-sun   { background: #FFD84D; color: #0D2C35; }
+.stat-mint  { background: #8BE3C8; color: #0D2C35; }
+.stat-tide  { background: #0D2C35; color: #F4EFCB; }
+.stat-coral { background: #FF5B6B; color: #0D2C35; }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-intro] { opacity: 1; }
+  .stat-wrap { transition: none; }
+}

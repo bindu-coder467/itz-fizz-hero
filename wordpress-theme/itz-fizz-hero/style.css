@@ -1,0 +1,14 @@
+/*
+Theme Name: Itz Fizz Hero
+Theme URI: https://example.com/itz-fizz-hero
+Author: Your Name
+Description: A scroll-driven hero section. A car drives across a road as you scroll, painting a trail that reveals the headline, and four impact stats light up as it passes. Built with GSAP ScrollTrigger, Lenis and the Bootstrap grid.
+Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.6
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: itz-fizz-hero
+*/
+/* All real styles live in assets/css/hero.css (enqueued by functions.php). */

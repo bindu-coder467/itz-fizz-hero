@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 400" width="840" height="400">
+  <title>Sports car, top view</title>
+  <defs>
+    <linearGradient id="paint" gradientUnits="userSpaceOnUse" x1="0" y1="40" x2="0" y2="360">
+      <stop offset="0" stop-color="#B8380B"/>
+      <stop offset="0.22" stop-color="#F2631F"/>
+      <stop offset="0.5" stop-color="#FFA24D"/>
+      <stop offset="0.78" stop-color="#F2631F"/>
+      <stop offset="1" stop-color="#B8380B"/>
+    </linearGradient>
+    <linearGradient id="glass" gradientUnits="userSpaceOnUse" x1="300" y1="0" x2="660" y2="0">
+      <stop offset="0" stop-color="#0B2530"/>
+      <stop offset="0.6" stop-color="#143C4B"/>
+      <stop offset="1" stop-color="#2C6B80"/>
+    </linearGradient>
+    <linearGradient id="roof" gradientUnits="userSpaceOnUse" x1="0" y1="96" x2="0" y2="304">
+      <stop offset="0" stop-color="#D9501A"/>
+      <stop offset="0.5" stop-color="#FF9A45"/>
+      <stop offset="1" stop-color="#D9501A"/>
+    </linearGradient>
+
+    <!-- one half of the body, drawn for y < 200 and mirrored for the other side -->
+    <path id="bodyHalf" d="M44 200 L44 112 C44 92 72 78 122 70 C166 64 204 58 246 58 C292 58 306 70 346 70 C424 70 500 64 562 62 C622 60 664 74 704 90 C752 110 798 154 816 200 Z"/>
+    <path id="glassHalf" d="M296 200 L296 152 C314 120 362 104 424 102 L556 102 C612 106 644 142 660 200 Z"/>
+    <path id="roofHalf" d="M398 200 L398 108 L524 106 C526 140 526 170 526 200 Z"/>
+    <path id="lightHalf" d="M728 126 C752 136 772 154 784 180 L756 172 C746 156 738 142 728 126 Z"/>
+    <path id="ventHalf" d="M136 132 L232 132 L232 139 L136 139 Z M136 150 L232 150 L232 157 L136 157 Z M136 168 L232 168 L232 175 L136 175 Z"/>
+    <g id="wheelsHalf">
+      <rect x="112" y="20" width="126" height="66" rx="28" fill="#0A1418"/>
+      <rect x="590" y="24" width="106" height="58" rx="24" fill="#0A1418"/>
+      <rect x="132" y="30" width="86" height="6" rx="3" fill="#2B3D44"/>
+      <rect x="610" y="31" width="76" height="6" rx="3" fill="#2B3D44"/>
+    </g>
+    <g id="mirrorHalf">
+      <path d="M566 64 L584 42 C592 36 606 38 608 46 L602 62 Z" fill="url(#paint)"/>
+    </g>
+  </defs>
+
+  <!-- wheels (behind body so the tyres peek out at the sides) -->
+  <use href="#wheelsHalf"/>
+  <use href="#wheelsHalf" transform="translate(0 400) scale(1 -1)"/>
+
+  <!-- body -->
+  <use href="#bodyHalf" fill="url(#paint)"/>
+  <use href="#bodyHalf" fill="url(#paint)" transform="translate(0 400) scale(1 -1)"/>
+  <use href="#mirrorHalf"/>
+  <use href="#mirrorHalf" transform="translate(0 400) scale(1 -1)"/>
+
+  <!-- body edge highlight + centre ridge -->
+  <path d="M60 200 C300 198 560 198 790 200" stroke="#FFD2A1" stroke-opacity="0.35" stroke-width="2" fill="none"/>
+
+  <!-- panel lines -->
+  <path d="M250 62 C262 100 262 300 250 338" stroke="#7A2A0D" stroke-opacity="0.35" stroke-width="2" fill="none"/>
+  <path d="M672 82 C664 130 664 270 672 318" stroke="#7A2A0D" stroke-opacity="0.35" stroke-width="2" fill="none"/>
+  <path d="M700 200 L812 200" stroke="#7A2A0D" stroke-opacity="0.3" stroke-width="2"/>
+
+  <!-- rear wing -->
+  <rect x="48" y="92" width="44" height="216" rx="10" fill="#8F2A08"/>
+  <rect x="56" y="98" width="30" height="204" rx="7" fill="#C2410C"/>
+  <rect x="44" y="84" width="14" height="30" rx="5" fill="#8F2A08"/>
+  <rect x="44" y="286" width="14" height="30" rx="5" fill="#8F2A08"/>
+
+  <!-- cabin -->
+  <use href="#glassHalf" fill="url(#glass)"/>
+  <use href="#glassHalf" fill="url(#glass)" transform="translate(0 400) scale(1 -1)"/>
+  <use href="#roofHalf" fill="url(#roof)"/>
+  <use href="#roofHalf" fill="url(#roof)" transform="translate(0 400) scale(1 -1)"/>
+  <!-- windscreen glare -->
+  <path d="M548 112 C596 118 626 146 640 190" stroke="#fff" stroke-opacity="0.28" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M548 288 C596 282 626 254 640 210" stroke="#fff" stroke-opacity="0.18" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+  <!-- engine louvres + headlights -->
+  <use href="#ventHalf" fill="#7A2A0D"/>
+  <use href="#ventHalf" fill="#7A2A0D" transform="translate(0 400) scale(1 -1)"/>
+  <use href="#lightHalf" fill="#FFF3B0"/>
+  <use href="#lightHalf" fill="#FFF3B0" transform="translate(0 400) scale(1 -1)"/>
+
+  <!-- tail lights -->
+  <rect x="44" y="118" width="8" height="40" rx="3" fill="#FF2A3D"/>
+  <rect x="44" y="242" width="8" height="40" rx="3" fill="#FF2A3D"/>
+</svg>
